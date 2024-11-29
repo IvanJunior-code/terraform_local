@@ -1,6 +1,7 @@
 resource "local_file" "foo" {
-  #content  = "O máquina que será usada é a ${join(", ", var.conteudo)}" #adaptado para o Set
-  content  = "O máquina que será usada é a ${var.conteudo.regiao} - ${var.conteudo.opcao_maquina} - ${var.conteudo.fazer_backup}" # adaptado para Object
+  # content  = "O máquina que será usada é a ${join(", ", var.conteudo)}" #adaptado para o Set
+  # content  = "O máquina que será usada é a ${var.conteudo.regiao} - ${var.conteudo.opcao_maquina} - ${var.conteudo.fazer_backup}" # adaptado para Object
+  content  = "O máquina que será usada é a ${var.conteudo[0]} - ${var.conteudo[1]} - ${var.conteudo[2]}" # adaptado para Tuple
   filename = "./arquivo.txt"
 }
 
@@ -40,16 +41,20 @@ variable "conteudo" {
   # type = set(string)
 
   #Object
-  default = {
-    regiao        = "nyc1",
-    opcao_maquina = "media",
-    fazer_backup  = false
-  }
-  type = object({
-    regiao        = string,
-    opcao_maquina = string,
-    fazer_backup  = bool
-  })
+  # default = {
+  #   regiao        = "nyc1",
+  #   opcao_maquina = "media",
+  #   fazer_backup  = false
+  # }
+  # type = object({
+  #   regiao        = string,
+  #   opcao_maquina = string,
+  #   fazer_backup  = bool
+  # })
+
+  #Tuple
+  default = [ "String 1", "String 2", false ]
+  type = tuple([string, string, bool])
 
   description = "Essa variável contem o conteúdo que vai para o arquivo."
 }
