@@ -1,5 +1,5 @@
 resource "local_file" "foo" {
-  content  = "O máquina que será usada é a ${var.conteudo["grande"]}"
+  content  = "O máquina que será usada é a ${join(", ", var.conteudo)}"
   filename = "./arquivo.txt"
 }
 
@@ -26,13 +26,16 @@ variable "conteudo" {
   #type = list(number)
 
   #Map
-  default = {
-    "pequena" = "s-1vcpu-2gb",
-    "media" = "s-2vcpu-4gb",
-    "grande" = "s-3vcpu-8gb",
-  }
-  type = map
+  # default = {
+  #   "pequena" = "s-1vcpu-2gb",
+  #   "media" = "s-2vcpu-4gb",
+  #   "grande" = "s-3vcpu-8gb",
+  # }
+  # type = map
   #type = map(string) #map de um tipo específico
+
+  default = ["s-1vcpu-2gb", "s-2vcpu-4gb", "s-3vcpu-8gb", "s-3vcpu-8gb"] #o set não considera valores repetidos
+  type = set(string)
   
   description = "Essa variável contem o conteúdo que vai para o arquivo."
 }
