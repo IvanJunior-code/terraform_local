@@ -4,7 +4,7 @@ resource "local_file" "foo" {
 }
 
 variable "conteudo" {
-  default = 1000
-  type = number
+  default = false
+  type = bool
   description = "Essa variável contem o conteúdo que vai para o arquivo."
 }
